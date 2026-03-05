@@ -418,3 +418,310 @@ Dense(10, activation='softmax')
 | Loss        | Error measurement  |
 
 ---
+
+
+
+
+#  CNN IMPORTANT TERMS (IN DETAIL)
+
+---
+
+## Kernel / Filter
+
+### What is a Kernel?
+
+A **kernel (or filter)** is a **small matrix** used to scan the input image and extract features.
+
+ Common sizes:
+
+* `3 × 3`
+* `5 × 5`
+* `7 × 7`
+
+Example kernel:
+
+```
+1  0 -1
+1  0 -1
+1  0 -1
+```
+
+ Detects **vertical edges**
+
+---
+
+###  Why do we use kernels?
+
+* To detect **features** like:
+
+  * edges
+  * textures
+  * shapes
+* Different kernels learn different features automatically
+
+---
+
+###  How do we use kernels?
+
+* Kernel slides over the image
+* Element-wise multiplication + sum
+* Produces a **feature map**
+
+ One kernel → one feature map
+ Multiple kernels → multiple feature maps
+
+---
+
+##  Stride
+
+###  What is Stride?
+
+Stride is the **number of pixels the kernel moves** each time.
+
+📌 Example:
+
+* Stride = 1 → move 1 pixel
+* Stride = 2 → skip 1 pixel
+
+---
+
+### 🔹 Why do we use stride?
+
+* Controls **output size**
+* Reduces **computation**
+* Larger stride → smaller output
+
+---
+
+### 🔹 How do we use stride?
+
+* Set stride value in convolution layer
+
+📌 Example:
+
+* Input: `7 × 7`
+* Kernel: `3 × 3`
+* Stride = 1 → Output: `5 × 5`
+* Stride = 2 → Output: `3 × 3`
+
+---
+
+## 3️⃣ Padding
+
+### 🔹 What is Padding?
+
+Padding means **adding extra pixels (usually zeros)** around the image border.
+
+📌 Types:
+
+* **Valid padding** → no padding
+* **Same padding** → output same size as input
+
+---
+
+### 🔹 Why do we use padding?
+
+* Prevents loss of edge information
+* Controls feature map size
+* Allows deep CNNs without shrinking too fast
+
+---
+
+### 🔹 How do we use padding?
+
+* Add zeros around image
+
+📌 Example:
+
+* Input: `5 × 5`
+* Kernel: `3 × 3`
+* Padding = 1 → Output remains `5 × 5`
+
+---
+
+## 4️⃣ Feature Map
+
+### 🔹 What is a Feature Map?
+
+* Output produced after applying a kernel
+* Highlights where a feature appears
+
+---
+
+### 🔹 Why feature maps matter?
+
+* Show **where** features are located
+* Deeper layers → complex features
+
+---
+
+### 🔹 How are they created?
+
+* Convolution + activation (ReLU)
+
+---
+
+## 5️⃣ Activation Function (ReLU)
+
+### 🔹 What is ReLU?
+
+[
+ReLU(x) = \max(0, x)
+]
+
+---
+
+### 🔹 Why do we use ReLU?
+
+* Adds **non-linearity**
+* Speeds up training
+* Avoids vanishing gradients
+
+---
+
+### 🔹 How do we use it?
+
+* Applied **after convolution**
+* Replaces negative values with zero
+
+---
+
+## 6️⃣ Pooling
+
+### 🔹 What is Pooling?
+
+Pooling **down-samples** feature maps.
+
+---
+
+### 🔹 Types of Pooling
+
+#### 🔸 Max Pooling (Most Common)
+
+```
+2  4
+1  3  →  4
+```
+
+#### 🔸 Average Pooling
+
+```
+(2+4+1+3)/4 = 2.5
+```
+
+---
+
+### 🔹 Why do we use pooling?
+
+* Reduces spatial size
+* Lowers computation
+* Prevents overfitting
+* Makes CNN robust to small shifts
+
+---
+
+### 🔹 How do we use pooling?
+
+* Common size: `2 × 2`
+* Stride = 2
+
+📌 Output size reduced by half
+
+---
+
+## 7️⃣ Flattening
+
+### 🔹 What is Flattening?
+
+* Converts 2D feature maps into **1D vector**
+
+---
+
+### 🔹 Why do we flatten?
+
+* Fully connected layers accept only vectors
+
+---
+
+### 🔹 How do we use it?
+
+* Applied after final pooling layer
+
+---
+
+## 8️⃣ Fully Connected (Dense) Layer
+
+### 🔹 What is it?
+
+* Every neuron connects to every neuron
+
+---
+
+### 🔹 Why do we use it?
+
+* Makes final decisions
+* Combines extracted features
+
+---
+
+### 🔹 How do we use it?
+
+* Placed near output
+* Often followed by dropout
+
+---
+
+## 9️⃣ Dropout
+
+### 🔹 What is Dropout?
+
+* Randomly disables neurons during training
+
+---
+
+### 🔹 Why do we use it?
+
+* Prevents overfitting
+* Forces model to generalize
+
+---
+
+### 🔹 How do we use it?
+
+* Typical values: `0.3 – 0.5`
+
+---
+
+## 🔟 Output Layer
+
+### 🔹 Activation based on task
+
+| Task                  | Activation |
+| --------------------- | ---------- |
+| Binary classification | Sigmoid    |
+| Multi-class           | Softmax    |
+| Regression            | Linear     |
+
+---
+
+## 🔢 Output Size Formula (IMPORTANT)
+
+[
+\text{Output} = \frac{N - F + 2P}{S} + 1
+]
+
+Where:
+
+* `N` = input size
+* `F` = filter size
+* `P` = padding
+* `S` = stride
+
+---
+
+## 🧠 Final One-Line Purpose Summary
+
+> **CNN uses kernels to extract features, stride & padding to control size, pooling to reduce complexity, and dense layers to classify.**
+
+---
+
